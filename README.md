@@ -38,10 +38,10 @@ on [Kubernetes](#anymlops) at day 0.
 The Kubernetes version of Anymlops uses [Terraform](https://www.terraform.io/), [Helm](https://helm.sh/), and
 [GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions).
 
-- Terraform handles the build, change, and versioning of the infrastructure.
-- Helm helps to define, install, and manage [Kubernetes](https://kubernetes.io/ "Automated container deployment, scaling, and management") resources.
-- GitHub Actions is used to automatically create commits when the configuration file (`anymlops-config.yaml`) is rendered,
-  as well as to kick off the deployment action.
+- The infrastructure's construction, modifications, and version control are managed by Terraform.
+- Kubernetes resources can be defined, installed, and maintained using Helm.
+- The automatic creation of commits upon rendering the configuration file (anymlops-config.yaml) and initiation of deployment action is facilitated by GitHub Actions.
+
 
 At Anymlops, we're all about making things easy for you! That's why you don't need to worry about understanding any of the technical jargon we've mentioned. Our goal is to ensure your project is deployed smoothly and successfully, without any fuss on your end.
 
