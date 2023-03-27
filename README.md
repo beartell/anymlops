@@ -6,7 +6,7 @@
 </picture>
 </p>
 
-<h1 align="center"> A data science platform that literally works ;) </h1>
+<h1 align="center"> A data science operating platform that literally works ;) </h1>
 <h1 align="center"> For everyone, from startups to the largest companies. </h1>
 
 ---
