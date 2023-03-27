@@ -55,9 +55,9 @@ Amazon [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/ "Google C
 
 ### Pre-requisites
 
-- Operating System: Currently, Anymlops supports development on Linux and Macos operating systems. Windows is NOT supported.
+- Operating System: Currently, Anymlops supports development on Linux and Macos operating systems. Windows is NOT supported yet.
 - You need Python >= 3.7 on your local machine or virtual environment to work on Anymlops.
-- Adopting virtual environments ([`conda`](https://docs.conda.io/en/latest/), [`pipenv`](https://github.com/pypa/pipenv) or
+- Virtual environments are our first class citizens. ([`conda`](https://docs.conda.io/en/latest/), [`pipenv`](https://github.com/pypa/pipenv) or
   [`venv`](https://docs.python.org/3/library/venv.html)) is also encouraged.
 
 ### Install Anymlops
