@@ -104,10 +104,9 @@ optional arguments:
 
 ## Usage 🚀
 
-Anymlops requires setting multiple environment variables to automate the deployments fully.
-For details on obtaining those variables, check the [Anymlops Get started documentation][docs-get-started].
+To ensure a seamless and fully automated deployment with Anymlops, you must configure multiple environment variables. Obtain the required variables by consulting the [Anymlops Get started documentation][docs-get-started].
 
-Once all the necessary credentials are gathered and set as [UNIX environment variables](https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/), Anymlops can be deployed in minutes.
+After collecting the necessary credentials, establish them as UNIX environment variables. With this step complete, you'll be able to deploy Anymlops in mere minutes.
 
 For detailed step-by-step instructions on how to deploy Anymlops, check the [Anymlops documentation][docs-deploy].
 
