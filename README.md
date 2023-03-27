@@ -22,7 +22,7 @@
   - [Cloud Providers ☁️](#cloud-providers-️)
 - [Installation 💻](#installation-)
   - [Pre-requisites](#pre-requisites)
-  - [Install Nebari](#install-anymlops)
+  - [Install Anymlops](#install-anymlops)
 - [Usage 🚀](#usage-)
 - [Code of Conduct 📖](#code-of-conduct-)
 - [Ongoing Support](#ongoing-support)
@@ -121,4 +121,4 @@ To guarantee a welcoming and friendly community, we require all community member
 
 ## License
 
-[Nebari is BSD3 licensed](LICENSE).
+[Anymlops is BSD3 licensed](LICENSE).
