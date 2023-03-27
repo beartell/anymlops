@@ -6,7 +6,8 @@
 </picture>
 </p>
 
-<h1 align="center"> A data science platform that works. Built for ground start ups to enterprises worlwide. </h1>
+<h1 align="center"> A data science platform that works. </h1>
+<h1 align="center"> For everyone, from startups to the largest companies. </h1>
 
 ---
 
