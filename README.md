@@ -25,7 +25,6 @@
   - [Install Anymlops](#install-anymlops)
 - [Usage 🚀](#usage-)
 - [Code of Conduct 📖](#code-of-conduct-)
-- [Ongoing Support](#ongoing-support)
 - [License](#license)
 
 Automated data science platform. From [JupyterHub](https://jupyter.org/hub "Multi-user version of the Notebook") to Cloud environments with
