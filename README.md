@@ -44,11 +44,7 @@ The Kubernetes version of Anymlops uses [Terraform](https://www.terraform.io/), 
 - GitHub Actions is used to automatically create commits when the configuration file (`anymlops-config.yaml`) is rendered,
   as well as to kick off the deployment action.
 
-Anymlops aims to abstract all these complexities for its users.
-Hence, it is not necessary to know any of the technologies mentioned above to have your project successfully deployed.
-
-> TLDR: If you know GitHub and feel comfortable generating and using API keys, you should have all it takes to deploy and maintain your system without the need for a dedicated
-> DevOps team. No need to learn Kubernetes, Terraform, or Helm.
+At Anymlops, we're all about making things easy for you! That's why you don't need to worry about understanding any of the technical jargon we've mentioned. Our goal is to ensure your project is deployed smoothly and successfully, without any fuss on your end.
 
 ### Cloud Providers ☁️
 
@@ -117,7 +113,7 @@ For detailed step-by-step instructions on how to deploy Anymlops, check the [Any
 
 ## Code of Conduct 📖
 
-To guarantee a welcoming and friendly community, we require all community members to follow our [Code of Conduct](https://github.com/Quansight/.github/blob/master/CODE_OF_CONDUCT.md).
+To guarantee a welcoming and friendly community, we require all community members to follow our [Code of Conduct](https://github.com/beartell/anymlops/CODE_OF_CONDUCT.md).
 
 ## License
 
