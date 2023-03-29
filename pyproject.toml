@@ -4,33 +4,33 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-include = ["nebari"]
+include = ["anymlops"]
 
 [tool.hatch.version]
 source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "nebari/_version.py"
+version-file = "anymlops/_version.py"
 local_scheme = "node-and-timestamp"
 
 
 ### Project ###
 [project]
-name = "nebari"
+name = "anymlops"
 dynamic = ["version"]
-description = "A Jupyter and Dask-powered open source data science platform."
+description = "A data science platform that works."
 readme = "README.md"
 requires-python = ">=3.8"
 license = "BSD-3-Clause"
 authors = [
-    { name = "Nebari development team", email = "internal-it@quansight.com" },
+    { name = "Beartell team", email = "bcakir@beartell.com" },
 ]
 keywords = [
     "aws",
     "gcp",
     "do",
     "azure",
-    "nebari",
+    "anymlops",
     "dask",
     "jupyter",
 ]
@@ -83,11 +83,11 @@ dev = [
 ]
 
 [project.urls]
-Documentation = "https://www.nebari.dev/docs"
-Source = "https://github.com/nebari-dev/nebari"
+Documentation = "https://www.beartell.com"
+Source = "https://github.com/beartell/anymlops"
 
 [project.scripts]
-nebari = "nebari.cli.main:app"
+anymlops = "anymlops.cli.main:app"
 
 [tool.ruff]
 ignore = [
@@ -95,7 +95,7 @@ ignore = [
     "F821", # Undefined name
 ]
 extend-exclude = [
-    "nebari/template",
+    "anymlops/template",
     "docs/source/conf.py",
     "docs",
     "home",

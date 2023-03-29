@@ -5,9 +5,9 @@ import sys
 
 # -- Project information -----------------------------------------------------
 
-project = "QHub"
-copyright = "2021, Quansight"
-author = "Quansight"
+project = "Anymlops"
+copyright = "2023, Beartell"
+author = "Beartell"
 
 # The short X.Y version
 # version = re.match(r"^([0-9]+\.[0-9]+).*", release).group(1)
@@ -16,7 +16,7 @@ author = "Quansight"
 # -- General configuration ---------------------------------------------------
 
 BLOG_TITLE = title = html_title = "Docs"
-BLOG_AUTHOR = author = "Quansight"
+BLOG_AUTHOR = author = "Beartell"
 html_theme = "pydata_sphinx_theme"
 html_sidebars = {
     "**": ["announcement", "search-field", "sidebar-nav-bs", "sidebar-ethical-ads"],
@@ -82,9 +82,9 @@ exclude_patterns = [
 latex_documents = [
     (
         master_doc,
-        "qhub.tex",
+        "anymlops.tex",
         "Infrastructure as Code",
-        "QHub",
+        "Anymlops",
         "manual",
     )
 ]
@@ -98,8 +98,8 @@ myst_heading_anchors = 5
 # Import qhub version number
 here = os.path.abspath(os.path.dirname(__file__))
 __version__ = None
-exec(open(os.path.join(here, "../nebari/version.py")).read())
+exec(open(os.path.join(here, "../anymlops/version.py")).read())
 
 qhub_version_string = __version__
 
-# SITE_URL = "https://quansight.github.io/qhub-home/"
+# SITE_URL = "https://beartell.com"

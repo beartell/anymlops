@@ -49,7 +49,6 @@ At Anymlops, we're all about making things easy for you! That's why you don't ne
 
 Anymlops offers out-of-the-box support for the major public cloud providers: [Digital Ocean](https://www.digitalocean.com/),
 Amazon [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/ "Google Cloud Provider"), and Microsoft [Azure](https://azure.microsoft.com/en-us/).
-![High-level illustration of Anymlops architecture](https://raw.githubusercontent.com/nebari-dev/nebari-docs/main/docs/static/img/welcome/nebari_overview_sequence.png)
 
 ## Installation 💻
 
