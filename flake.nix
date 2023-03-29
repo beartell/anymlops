@@ -1,5 +1,5 @@
 {
-  description = "Nebari";
+  description = "Anymlops";
 
   inputs = {
     nixpkgs = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
@@ -50,7 +50,7 @@
       ];
     in rec {
       defaultApp.x86_64-linux = pythonPackages.buildPythonPackage {
-        pname = "nebari";
+        pname = "anymlops";
         version = "latest";
         format = "pyproject";
 
