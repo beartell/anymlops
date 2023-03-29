@@ -9,9 +9,9 @@ body:
       value: |
         # Welcome 👋
 
-        Thanks for using Nebari and taking some time to contribute to this project.
+        Thanks for using Anymlops and taking some time to contribute to this project.
 
-        Please fill out each section below. This info allows Nebari maintainers to diagnose (and fix!) your issue as
+        Please fill out each section below. This info allows Anymlops maintainers to diagnose (and fix!) your issue as
         quickly as possible.
         Before submitting a bug, please make sure the issue hasn't been already addressed by searching through
         [the past issues](https://github.com/nebari-dev/nebari/issues).
@@ -42,7 +42,7 @@ body:
 
   - type: input
     attributes:
-      label: OS and architecture in which you are running Nebari
+      label: OS and architecture in which you are running Anymlops
     validations:
       required: true
 
@@ -80,7 +80,7 @@ body:
         Describe your environment:
         - Conda version (use `conda --version`)
         - Kubernetes version (use `kubectl version`)
-        - Nebari version
+        - Anymlops version
     validations:
       required: false
 
@@ -101,7 +101,7 @@ body:
   - type: dropdown
     attributes:
       label: Integrations
-      description: Is this issue related to any of the Nebari integrations?
+      description: Is this issue related to any of the Anymlops integrations?
       multiple: true
       options:
         - "Prefect"

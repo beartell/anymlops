@@ -41,9 +41,9 @@ jobs:
         shell: bash -l {0}
     steps:
 
-      - name: "Set NEBARI_IMAGE_TAG=main"
+      - name: "Set ANYMLOPS_IMAGE_TAG=main"
         run: |
-          echo "NEBARI_IMAGE_TAG=main" >> "$GITHUB_ENV"
+          echo "ANYMLOPS_IMAGE_TAG=main" >> "$GITHUB_ENV"
           echo "GITHUB_BASE_REF: ${GITHUB_BASE_REF}"
           echo "GITHUB_HEAD_REF: ${GITHUB_HEAD_REF}"
           echo "GITHUB_REF: ${GITHUB_REF}"
@@ -66,7 +66,7 @@ jobs:
         with:
           python-version: 3.8
           miniconda-version: "latest"
-      - name: Install Nebari
+      - name: Install Anymlops
         run: |
           conda install -c anaconda pip
           pip install .[dev]
@@ -93,7 +93,7 @@ jobs:
       - name: Add DNS entry to hosts
         run: |
           sudo echo "172.18.1.100  github-actions.nebari.dev" | sudo tee -a /etc/hosts
-      - name: Initialize Nebari Cloud
+      - name: Initialize Anymlops Cloud
         run: |
           mkdir -p local-deployment
           cd local-deployment
@@ -104,7 +104,7 @@ jobs:
           sed -i -E 's/(mem_guarantee):\s+[A-Za-z0-9\.]+/\1: 0.25G/g' "nebari-config.yaml"
 
           cat nebari-config.yaml
-      - name: Deploy Nebari
+      - name: Deploy Anymlops
         run: |
           cd local-deployment
           nebari deploy --config nebari-config.yaml --disable-prompt
@@ -133,7 +133,7 @@ jobs:
           sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
       - name: Get nebari-config.yaml full path
-        run: echo "NEBARI_CONFIG_PATH=`realpath ./local-deployment/nebari-config.yaml`" >> "$GITHUB_ENV"
+        run: echo "ANYMLOPS_CONFIG_PATH=`realpath ./local-deployment/nebari-config.yaml`" >> "$GITHUB_ENV"
 
       - name: Create example-user
         run: |
@@ -143,8 +143,8 @@ jobs:
           echo "CYPRESS_EXAMPLE_USER_NAME=${CYPRESS_EXAMPLE_USER_NAME}" >> $GITHUB_ENV
           echo "CYPRESS_EXAMPLE_USER_PASSWORD=${CYPRESS_EXAMPLE_USER_PASSWORD}" >> $GITHUB_ENV
 
-          nebari keycloak adduser --user "${CYPRESS_EXAMPLE_USER_NAME}" "${CYPRESS_EXAMPLE_USER_PASSWORD}" --config "${NEBARI_CONFIG_PATH}"
-          nebari keycloak listusers --config "${NEBARI_CONFIG_PATH}"
+          nebari keycloak adduser --user "${CYPRESS_EXAMPLE_USER_NAME}" "${CYPRESS_EXAMPLE_USER_PASSWORD}" --config "${ANYMLOPS_CONFIG_PATH}"
+          nebari keycloak listusers --config "${ANYMLOPS_CONFIG_PATH}"
 
       - name: Cypress run
         uses: cypress-io/github-action@v4

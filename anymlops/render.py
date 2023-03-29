@@ -33,7 +33,7 @@ def render_template(output_directory, config_filename, force=False, dry_run=Fals
     output_directory = pathlib.Path(output_directory).resolve()
 
     if output_directory == str(pathlib.Path.home()):
-        print("ERROR: Deploying Nebari in home directory is not advised!")
+        print("ERROR: Deploying Anymlops in home directory is not advised!")
         sys.exit(1)
 
     # mkdir all the way down to repo dir so we can copy .gitignore
@@ -51,7 +51,7 @@ def render_template(output_directory, config_filename, force=False, dry_run=Fals
         config = yaml.load(f)
 
     # For any config values that start with
-    # NEBARI_SECRET_, set the values using the
+    # ANYMLOPS_SECRET_, set the values using the
     # corresponding env var.
     set_env_vars_in_config(config)
 
@@ -149,7 +149,7 @@ def render_template(output_directory, config_filename, force=False, dry_run=Fals
 
 
 def render_contents(config: Dict):
-    """Dynamically generated contents from Nebari configuration."""
+    """Dynamically generated contents from Anymlops configuration."""
     contents = {
         **tf_objects.stage_01_terraform_state(config),
         **tf_objects.stage_02_infrastructure(config),
@@ -312,7 +312,7 @@ def hash_file(file_path: str):
 def set_env_vars_in_config(config):
     """
 
-    For values in the config starting with 'NEBARI_SECRET_XXX' the environment
+    For values in the config starting with 'ANYMLOPS_SECRET_XXX' the environment
     variables are searched for the pattern XXX and the config value is
     modified. This enables setting secret values that should not be directly
     stored in the config file.
@@ -341,7 +341,7 @@ def get_secret_config_entries(config, config_idx=None, private_entries=None):
             )
             output = [*output, *sub_dict_outputs]
         else:
-            if "NEBARI_SECRET_" in str(value):
+            if "ANYMLOPS_SECRET_" in str(value):
                 output = [*output, [*config_idx, key]]
     return output
 
@@ -362,12 +362,12 @@ def set_anymlops_secret(config, idx):
 
 
 def get_anymlops_secret(secret_var):
-    env_var = secret_var.lstrip("NEBARI_SECRET_")
+    env_var = secret_var.lstrip("ANYMLOPS_SECRET_")
     val = os.environ.get(env_var)
     if not val:
         raise EnvironmentError(
             f"Since '{secret_var}' was found in the"
-            " Nebari config, the environment variable"
+            " Anymlops config, the environment variable"
             f" '{env_var}' must be set."
         )
     return val

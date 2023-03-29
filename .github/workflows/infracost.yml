@@ -22,7 +22,7 @@ env:
 jobs:
   infracost:
     if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name != 'pull_request'
-    name: Run Infracost on Nebari Infrastructure
+    name: Run Infracost on Anymlops Infrastructure
     runs-on: ubuntu-latest
 
     strategy:
@@ -84,14 +84,14 @@ jobs:
         with:
           python-version: 3.8
 
-      # Install Nebari
-      - name: Install Nebari
+      # Install Anymlops
+      - name: Install Anymlops
         if: steps.changes.outputs.${{ matrix.provider }} == 'true'
         run: |
           pip install .[dev]
 
-      # Initialize Nebari and render the infrastructure
-      - name: Nebari initialize and render
+      # Initialize Anymlops and render the infrastructure
+      - name: Anymlops initialize and render
         run: |
           mkdir data && cd data
           nebari init "${{ matrix.provider }}" --project "TestProvider" --terraform-state=remote --domain "${{ matrix.provider }}.nebari.dev" --auth-provider github --disable-prompt
@@ -110,14 +110,14 @@ jobs:
       - name: Checkout PR branch
         uses: actions/checkout@v3
 
-      # Install Nebari
-      - name: Install Nebari
+      # Install Anymlops
+      - name: Install Anymlops
         if: steps.changes.outputs.${{ matrix.provider }} == 'true'
         run: |
           pip install .[dev]
 
-      # Initialize Nebari and render the infrastructure
-      - name: Nebari initialize and render
+      # Initialize Anymlops and render the infrastructure
+      - name: Anymlops initialize and render
         run: |
           mkdir data && cd data
           nebari init "${{ matrix.provider }}" --project "TestProvider" --terraform-state=remote --domain "${{ matrix.provider }}.nebari.dev" --auth-provider github --disable-prompt

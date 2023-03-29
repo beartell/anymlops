@@ -10,16 +10,16 @@ while getopts y opt; do
     shift
 done
 
-PROJECT_NAME=${NEBARI_PROJECT_NAME:-}
-NAMESPACE=${NEBARI_NAMESPACE:-}
+PROJECT_NAME=${ANYMLOPS_PROJECT_NAME:-}
+NAMESPACE=${ANYMLOPS_NAMESPACE:-}
 
 if [ -z "$PROJECT_NAME" ]; then
-    echo "Please set the NEBARI_PROJECT_NAME environment variable."
+    echo "Please set the ANYMLOPS_PROJECT_NAME environment variable."
     exit 1
 fi
 
 if [ -z "$NAMESPACE" ]; then
-    echo "Please set the NEBARI_NAMESPACE environment variable."
+    echo "Please set the ANYMLOPS_NAMESPACE environment variable."
     exit 1
 fi
 
@@ -36,7 +36,7 @@ if ! [[ $yes ]]; then
 fi
 
 
-echo $'Deleting the Nebari cluster on AWS now...\n'
+echo $'Deleting the Anymlops cluster on AWS now...\n'
 
 echo "Deleting running pods on EKS cluster"
 aws eks update-kubeconfig --name "${PROJECT_NAME}-${NAMESPACE}"

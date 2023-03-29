@@ -435,12 +435,12 @@ class CDSDashboards(Base):
 # =============== Extensions = = ==============
 
 
-class NebariExtensionEnv(Base):
+class AnymlopsExtensionEnv(Base):
     name: str
     value: str
 
 
-class NebariExtension(Base):
+class AnymlopsExtension(Base):
     name: str
     image: str
     urlslug: str
@@ -450,7 +450,7 @@ class NebariExtension(Base):
     jwt: bool = False
     anymlopsconfigyaml: bool = False
     logout: typing.Optional[str]
-    envs: typing.Optional[typing.List[NebariExtensionEnv]]
+    envs: typing.Optional[typing.List[AnymlopsExtensionEnv]]
 
 
 class Ingress(Base):
@@ -583,7 +583,7 @@ class Main(Base):
     kbatch: typing.Optional[KBatch]
     monitoring: typing.Optional[Monitoring]
     clearml: typing.Optional[ClearML]
-    tf_extensions: typing.Optional[typing.List[NebariExtension]]
+    tf_extensions: typing.Optional[typing.List[AnymlopsExtension]]
     jupyterhub: typing.Optional[JupyterHub]
     prevent_deploy: bool = (
         False  # Optional, but will be given default value if not present
@@ -623,6 +623,6 @@ def is_version_accepted(v):
     """
     Given a version string, return boolean indicating whether
     anymlops_version in the anymlops-config.yaml would be acceptable
-    for deployment with the current Nebari package.
+    for deployment with the current Anymlops package.
     """
     return Main.is_version_accepted(v)

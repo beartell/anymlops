@@ -56,7 +56,7 @@ c.KubeClusterConfig.worker_extra_pod_config = config["cluster"][
 
 
 # ============ Authentication =================
-class NebariAuthentication(JupyterHubAuthenticator):
+class AnymlopsAuthentication(JupyterHubAuthenticator):
     async def authenticate(self, request):
         user = await super().authenticate(request)
         url = f"{self.jupyterhub_api_url}/users/{user.name}"
@@ -80,7 +80,7 @@ class NebariAuthentication(JupyterHubAuthenticator):
         return user
 
 
-c.DaskGateway.authenticator_class = NebariAuthentication
+c.DaskGateway.authenticator_class = AnymlopsAuthentication
 c.JupyterHubAuthenticator.jupyterhub_api_url = config["jupyterhub_api_url"]
 c.JupyterHubAuthenticator.jupyterhub_api_token = config["jupyterhub_api_token"]
 

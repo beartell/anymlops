@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Prefix name to assign to Nebari resources"
+  description = "Prefix name to assign to Anymlops resources"
   type        = string
 }
 

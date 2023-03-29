@@ -9,11 +9,11 @@ from anymlops.provider.terraform import (
 from anymlops.utils import deep_merge
 
 
-def NebariAWSProvider(anymlops_config: Dict):
+def AnymlopsAWSProvider(anymlops_config: Dict):
     return Provider("aws", region=anymlops_config["amazon_web_services"]["region"])
 
 
-def NebariGCPProvider(anymlops_config: Dict):
+def AnymlopsGCPProvider(anymlops_config: Dict):
     return Provider(
         "google",
         project=anymlops_config["google_cloud_platform"]["project"],
@@ -21,15 +21,15 @@ def NebariGCPProvider(anymlops_config: Dict):
     )
 
 
-def NebariAzureProvider(anymlops_config: Dict):
+def AnymlopsAzureProvider(anymlops_config: Dict):
     return Provider("azurerm", features={})
 
 
-def NebariDigitalOceanProvider(anymlops_config: Dict):
+def AnymlopsDigitalOceanProvider(anymlops_config: Dict):
     return Provider("digitalocean")
 
 
-def NebariKubernetesProvider(anymlops_config: Dict):
+def AnymlopsKubernetesProvider(anymlops_config: Dict):
     if anymlops_config["provider"] == "aws":
         cluster_name = f"{anymlops_config['project_name']}-{anymlops_config['namespace']}"
         # The AWS provider needs to be added, as we are using aws related resources #1254
@@ -51,7 +51,7 @@ def NebariKubernetesProvider(anymlops_config: Dict):
     )
 
 
-def NebariHelmProvider(anymlops_config: Dict):
+def AnymlopsHelmProvider(anymlops_config: Dict):
     if anymlops_config["provider"] == "aws":
         cluster_name = f"{anymlops_config['project_name']}-{anymlops_config['namespace']}"
 
@@ -70,7 +70,7 @@ def NebariHelmProvider(anymlops_config: Dict):
     return Provider("helm")
 
 
-def NebariTerraformState(directory: str, anymlops_config: Dict):
+def AnymlopsTerraformState(directory: str, anymlops_config: Dict):
     if anymlops_config["terraform_state"]["type"] == "local":
         return {}
     elif anymlops_config["terraform_state"]["type"] == "existing":
@@ -143,7 +143,7 @@ def stage_01_terraform_state(config):
         return {
             "stages/01-terraform-state/gcp/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariGCPProvider(config),
+                    AnymlopsGCPProvider(config),
                 ]
             )
         }
@@ -151,7 +151,7 @@ def stage_01_terraform_state(config):
         return {
             "stages/01-terraform-state/aws/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariAWSProvider(config),
+                    AnymlopsAWSProvider(config),
                 ]
             )
         }
@@ -164,8 +164,8 @@ def stage_02_infrastructure(config):
         return {
             "stages/02-infrastructure/gcp/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariGCPProvider(config),
-                    NebariTerraformState("02-infrastructure", config),
+                    AnymlopsGCPProvider(config),
+                    AnymlopsTerraformState("02-infrastructure", config),
                 ]
             )
         }
@@ -173,7 +173,7 @@ def stage_02_infrastructure(config):
         return {
             "stages/02-infrastructure/do/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariTerraformState("02-infrastructure", config),
+                    AnymlopsTerraformState("02-infrastructure", config),
                 ]
             )
         }
@@ -181,7 +181,7 @@ def stage_02_infrastructure(config):
         return {
             "stages/02-infrastructure/azure/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariTerraformState("02-infrastructure", config),
+                    AnymlopsTerraformState("02-infrastructure", config),
                 ]
             ),
         }
@@ -189,8 +189,8 @@ def stage_02_infrastructure(config):
         return {
             "stages/02-infrastructure/aws/_anymlops.tf.json": tf_render_objects(
                 [
-                    NebariAWSProvider(config),
-                    NebariTerraformState("02-infrastructure", config),
+                    AnymlopsAWSProvider(config),
+                    AnymlopsTerraformState("02-infrastructure", config),
                 ]
             )
         }
@@ -202,9 +202,9 @@ def stage_03_kubernetes_initialize(config):
     return {
         "stages/03-kubernetes-initialize/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("03-kubernetes-initialize", config),
-                NebariKubernetesProvider(config),
-                NebariHelmProvider(config),
+                AnymlopsTerraformState("03-kubernetes-initialize", config),
+                AnymlopsKubernetesProvider(config),
+                AnymlopsHelmProvider(config),
             ]
         ),
     }
@@ -214,9 +214,9 @@ def stage_04_kubernetes_ingress(config):
     return {
         "stages/04-kubernetes-ingress/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("04-kubernetes-ingress", config),
-                NebariKubernetesProvider(config),
-                NebariHelmProvider(config),
+                AnymlopsTerraformState("04-kubernetes-ingress", config),
+                AnymlopsKubernetesProvider(config),
+                AnymlopsHelmProvider(config),
             ]
         ),
     }
@@ -226,9 +226,9 @@ def stage_05_kubernetes_keycloak(config):
     return {
         "stages/05-kubernetes-keycloak/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("05-kubernetes-keycloak", config),
-                NebariKubernetesProvider(config),
-                NebariHelmProvider(config),
+                AnymlopsTerraformState("05-kubernetes-keycloak", config),
+                AnymlopsKubernetesProvider(config),
+                AnymlopsHelmProvider(config),
             ]
         ),
     }
@@ -238,7 +238,7 @@ def stage_06_kubernetes_keycloak_configuration(config):
     return {
         "stages/06-kubernetes-keycloak-configuration/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("06-kubernetes-keycloak-configuration", config),
+                AnymlopsTerraformState("06-kubernetes-keycloak-configuration", config),
             ]
         ),
     }
@@ -248,9 +248,9 @@ def stage_07_kubernetes_services(config):
     return {
         "stages/07-kubernetes-services/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("07-kubernetes-services", config),
-                NebariKubernetesProvider(config),
-                NebariHelmProvider(config),
+                AnymlopsTerraformState("07-kubernetes-services", config),
+                AnymlopsKubernetesProvider(config),
+                AnymlopsHelmProvider(config),
             ]
         ),
     }
@@ -260,9 +260,9 @@ def stage_08_anymlops_tf_extensions(config):
     return {
         "stages/08-anymlops-tf-extensions/_anymlops.tf.json": tf_render_objects(
             [
-                NebariTerraformState("08-anymlops-tf-extensions", config),
-                NebariKubernetesProvider(config),
-                NebariHelmProvider(config),
+                AnymlopsTerraformState("08-anymlops-tf-extensions", config),
+                AnymlopsKubernetesProvider(config),
+                AnymlopsHelmProvider(config),
             ]
         ),
     }

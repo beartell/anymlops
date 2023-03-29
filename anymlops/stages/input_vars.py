@@ -40,7 +40,7 @@ def stage_02_infrastructure(stage_outputs, config):
     if config["provider"] == "local":
         return {
             "kubeconfig_filename": os.path.join(
-                tempfile.gettempdir(), "NEBARI_KUBECONFIG"
+                tempfile.gettempdir(), "ANYMLOPS_KUBECONFIG"
             ),
             "kube_context": config["local"].get("kube_context"),
         }
@@ -54,7 +54,7 @@ def stage_02_infrastructure(stage_outputs, config):
             "kubernetes_version": config["digital_ocean"]["kubernetes_version"],
             "node_groups": config["digital_ocean"]["node_groups"],
             "kubeconfig_filename": os.path.join(
-                tempfile.gettempdir(), "NEBARI_KUBECONFIG"
+                tempfile.gettempdir(), "ANYMLOPS_KUBECONFIG"
             ),
             **config.get("do", {}).get("terraform_overrides", {}),
         }
@@ -79,7 +79,7 @@ def stage_02_infrastructure(stage_outputs, config):
                 for key, value in config["google_cloud_platform"]["node_groups"].items()
             ],
             "kubeconfig_filename": os.path.join(
-                tempfile.gettempdir(), "NEBARI_KUBECONFIG"
+                tempfile.gettempdir(), "ANYMLOPS_KUBECONFIG"
             ),
             **config.get("gcp", {}).get("terraform_overrides", {}),
         }
@@ -91,7 +91,7 @@ def stage_02_infrastructure(stage_outputs, config):
             "kubernetes_version": config["azure"]["kubernetes_version"],
             "node_groups": config["azure"]["node_groups"],
             "kubeconfig_filename": os.path.join(
-                tempfile.gettempdir(), "NEBARI_KUBECONFIG"
+                tempfile.gettempdir(), "ANYMLOPS_KUBECONFIG"
             ),
             "resource_group_name": f'{config["project_name"]}-{config["namespace"]}',
             "node_resource_group_name": f'{config["project_name"]}-{config["namespace"]}-node-resource-group',
@@ -116,7 +116,7 @@ def stage_02_infrastructure(stage_outputs, config):
                 for key, value in config["amazon_web_services"]["node_groups"].items()
             ],
             "kubeconfig_filename": os.path.join(
-                tempfile.gettempdir(), "NEBARI_KUBECONFIG"
+                tempfile.gettempdir(), "ANYMLOPS_KUBECONFIG"
             ),
             **config.get("aws", {}).get("terraform_overrides", {}),
         }

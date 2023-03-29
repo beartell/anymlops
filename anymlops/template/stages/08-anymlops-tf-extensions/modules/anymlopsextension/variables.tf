@@ -9,7 +9,7 @@ variable "name" {
 }
 
 variable "external-url" {
-  description = "URL of the Nebari"
+  description = "URL of the Anymlops"
   type        = string
 }
 

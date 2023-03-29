@@ -12,7 +12,7 @@ from typing import Dict, List
 
 from ruamel.yaml import YAML
 
-from anymlops.constants import DEFAULT_NEBARI_DASK_VERSION, DEFAULT_NEBARI_IMAGE_TAG
+from anymlops.constants import DEFAULT_ANYMLOPS_DASK_VERSION, DEFAULT_ANYMLOPS_IMAGE_TAG
 from anymlops.provider.cloud import (
     amazon_web_services,
     azure_cloud,
@@ -21,10 +21,10 @@ from anymlops.provider.cloud import (
 )
 
 # environment variable overrides
-NEBARI_K8S_VERSION = os.getenv("NEBARI_K8S_VERSION", None)
-NEBARI_GH_BRANCH = os.getenv("NEBARI_GH_BRANCH", None)
-NEBARI_IMAGE_TAG = os.getenv("NEBARI_IMAGE_TAG", None)
-NEBARI_DASK_VERSION = os.getenv("NEBARI_DASK_VERSION", None)
+ANYMLOPS_K8S_VERSION = os.getenv("ANYMLOPS_K8S_VERSION", None)
+ANYMLOPS_GH_BRANCH = os.getenv("ANYMLOPS_GH_BRANCH", None)
+ANYMLOPS_IMAGE_TAG = os.getenv("ANYMLOPS_IMAGE_TAG", None)
+ANYMLOPS_DASK_VERSION = os.getenv("ANYMLOPS_DASK_VERSION", None)
 
 DO_ENV_DOCS = (
     "https://docs.qhub.dev/en/stable/source/installation/setup.html#digital-ocean"
@@ -248,11 +248,11 @@ def set_kubernetes_version(
         region = cloud_config["region"]
 
         # to avoid using cloud provider SDK
-        # set NEBARI_K8S_VERSION environment variable
-        if not NEBARI_K8S_VERSION:
+        # set ANYMLOPS_K8S_VERSION environment variable
+        if not ANYMLOPS_K8S_VERSION:
             k8s_versions = func(region)
         else:
-            k8s_versions = [NEBARI_K8S_VERSION]
+            k8s_versions = [ANYMLOPS_K8S_VERSION]
 
         if kubernetes_version:
             if kubernetes_version in k8s_versions:
@@ -384,16 +384,16 @@ def deep_merge(*args):
 def set_docker_image_tag() -> str:
     """Set docker image tag for `jupyterlab`, `jupyterhub`, and `dask-worker`."""
 
-    if NEBARI_IMAGE_TAG:
-        return NEBARI_IMAGE_TAG
+    if ANYMLOPS_IMAGE_TAG:
+        return ANYMLOPS_IMAGE_TAG
 
-    return DEFAULT_NEBARI_IMAGE_TAG
+    return DEFAULT_ANYMLOPS_IMAGE_TAG
 
 
 def set_anymlops_dask_version() -> str:
     """Set version of `anymlops-dask` meta package."""
 
-    if NEBARI_DASK_VERSION:
-        return NEBARI_DASK_VERSION
+    if ANYMLOPS_DASK_VERSION:
+        return ANYMLOPS_DASK_VERSION
 
-    return DEFAULT_NEBARI_DASK_VERSION
+    return DEFAULT_ANYMLOPS_DASK_VERSION

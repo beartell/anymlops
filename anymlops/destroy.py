@@ -178,7 +178,7 @@ def destroy_configuration(config):
     # get credentials to kubernetes and keycloak context
     stage_outputs = gather_stage_outputs(config)
 
-    with timer(logger, "destroying Nebari"):
+    with timer(logger, "destroying Anymlops"):
         status = destroy_stages(stage_outputs, config)
 
     for stage_name, success in status.items():
@@ -187,7 +187,7 @@ def destroy_configuration(config):
 
     if not all(status.values()):
         logger.error(
-            "ERROR: not all anymlops stages were destroyed properly. For cloud deployments of Nebari typically only stages 01 and 02 need to succeed to properly destroy everything"
+            "ERROR: not all anymlops stages were destroyed properly. For cloud deployments of Anymlops typically only stages 01 and 02 need to succeed to properly destroy everything"
         )
     else:
-        print("Nebari properly destroyed all resources without error")
+        print("Anymlops properly destroyed all resources without error")

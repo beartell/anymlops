@@ -101,14 +101,14 @@ def gha_env_vars(config):
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}",
     }
 
-    if os.environ.get("NEBARI_GH_BRANCH"):
-        env_vars["NEBARI_GH_BRANCH"] = "${{ secrets.NEBARI_GH_BRANCH }}"
+    if os.environ.get("ANYMLOPS_GH_BRANCH"):
+        env_vars["ANYMLOPS_GH_BRANCH"] = "${{ secrets.ANYMLOPS_GH_BRANCH }}"
 
     # This assumes that the user is using the omitting sensitive values configuration for the token.
     if config.get("prefect", {}).get("enabled", False):
         env_vars[
-            "NEBARI_SECRET_prefect_token"
-        ] = "${{ secrets.NEBARI_SECRET_PREFECT_TOKEN }}"
+            "ANYMLOPS_SECRET_prefect_token"
+        ] = "${{ secrets.ANYMLOPS_SECRET_PREFECT_TOKEN }}"
 
     if config["provider"] == "aws":
         env_vars["AWS_ACCESS_KEY_ID"] = "${{ secrets.AWS_ACCESS_KEY_ID }}"
@@ -190,11 +190,11 @@ class GHA(BaseModel):
     jobs: GHA_jobs
 
 
-class NebariOps(GHA):
+class AnymlopsOps(GHA):
     pass
 
 
-class NebariLinter(GHA):
+class AnymlopsLinter(GHA):
     pass
 
 
@@ -226,7 +226,7 @@ def setup_python_step():
 
 
 def install_anymlops_step(anymlops_version):
-    return GHA_job_step(name="Install Nebari", run=pip_install_anymlops(anymlops_version))
+    return GHA_job_step(name="Install Anymlops", run=pip_install_anymlops(anymlops_version))
 
 
 def gen_anymlops_ops(config):
@@ -248,7 +248,7 @@ def gen_anymlops_ops(config):
 
     step4 = GHA_job_step(
         name="Deploy Changes made in anymlops-config.yaml",
-        run=f"anymlops deploy -c anymlops-config.yaml --disable-prompt{' --skip-remote-state-provision' if os.environ.get('NEBARI_GH_BRANCH') else ''}",
+        run=f"anymlops deploy -c anymlops-config.yaml --disable-prompt{' --skip-remote-state-provision' if os.environ.get('ANYMLOPS_GH_BRANCH') else ''}",
     )
     gha_steps.append(step4)
 
@@ -284,7 +284,7 @@ def gen_anymlops_ops(config):
     )
     jobs = GHA_jobs(__root__={"build": job1})
 
-    return NebariOps(
+    return AnymlopsOps(
         name="anymlops auto update",
         on=on,
         env=env_vars,
@@ -294,9 +294,9 @@ def gen_anymlops_ops(config):
 
 def gen_anymlops_linter(config):
     env_vars = {}
-    anymlops_gh_branch = os.environ.get("NEBARI_GH_BRANCH")
+    anymlops_gh_branch = os.environ.get("ANYMLOPS_GH_BRANCH")
     if anymlops_gh_branch:
-        env_vars["NEBARI_GH_BRANCH"] = "${{ secrets.NEBARI_GH_BRANCH }}"
+        env_vars["ANYMLOPS_GH_BRANCH"] = "${{ secrets.ANYMLOPS_GH_BRANCH }}"
     else:
         env_vars = None
 
@@ -319,7 +319,7 @@ def gen_anymlops_linter(config):
     }
 
     step4 = GHA_job_step(
-        name="Nebari Lintify",
+        name="Anymlops Lintify",
         run="anymlops validate --config anymlops-config.yaml --enable-commenting",
         env=step4_envs,
     )
@@ -333,7 +333,7 @@ def gen_anymlops_linter(config):
         }
     )
 
-    return NebariLinter(
+    return AnymlopsLinter(
         name="anymlops linter",
         on=on,
         env=env_vars,

@@ -9,9 +9,9 @@ body:
       value: |
         # Welcome 👋
 
-        Thanks for using Nebari and taking some time to contribute to this project.
+        Thanks for using Anymlops and taking some time to contribute to this project.
 
-        Please fill out each section below. This info allows Nebari maintainers to diagnose (and fix!) your issue as
+        Please fill out each section below. This info allows Anymlops maintainers to diagnose (and fix!) your issue as
         quickly as possible.
         Before submitting a bug, please make sure the issue hasn't been already addressed by searching through
         the past issues in this repository.

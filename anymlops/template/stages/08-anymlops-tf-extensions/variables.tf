@@ -14,12 +14,12 @@ variable "realm_id" {
 }
 
 variable "tf_extensions" {
-  description = "Nebari Terraform Extensions"
+  description = "Anymlops Terraform Extensions"
   default     = []
 }
 
 variable "anymlops_config_yaml" {
-  description = "Nebari Configuration"
+  description = "Anymlops Configuration"
   type        = any
 }
 

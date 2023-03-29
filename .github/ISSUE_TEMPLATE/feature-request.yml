@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Hi! Thanks for using Nebari and taking some time to contribute to Nebari.
+        Hi! Thanks for using Anymlops and taking some time to contribute to Anymlops.
   - type: textarea
     attributes:
       label: Feature description

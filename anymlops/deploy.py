@@ -235,7 +235,7 @@ def guided_install(
             provision_07_kubernetes_services(stage_outputs, config, disable_checks)
             provision_08_anymlops_tf_extensions(stage_outputs, config, disable_checks)
 
-            print("Nebari deployed successfully")
+            print("Anymlops deployed successfully")
 
     print("Services:")
     for service_name, service in stage_outputs["stages/07-kubernetes-services"][
@@ -272,13 +272,13 @@ def deploy_configuration(
             textwrap.dedent(
                 """
         Deployment prevented due to the prevent_deploy setting in your anymlops-config.yaml file.
-        You could remove that field to deploy your Nebari, but please do NOT do so without fully understanding why that value was set in the first place.
+        You could remove that field to deploy your Anymlops, but please do NOT do so without fully understanding why that value was set in the first place.
 
         It may have been set during an upgrade of your anymlops-config.yaml file because we do not believe it is safe to redeploy the new
-        version of Nebari without having a full backup of your system ready to restore. It may be known that an in-situ upgrade is impossible
-        and that redeployment will tear down your existing infrastructure before creating an entirely new Nebari without your old data.
+        version of Anymlops without having a full backup of your system ready to restore. It may be known that an in-situ upgrade is impossible
+        and that redeployment will tear down your existing infrastructure before creating an entirely new Anymlops without your old data.
 
-        PLEASE get in touch with Nebari development team at https://github.com/anymlops-dev/anymlops for assistance in proceeding.
+        PLEASE get in touch with Anymlops development team at https://github.com/anymlops-dev/anymlops for assistance in proceeding.
         Your data may be at risk without our guidance.
         """
             )
@@ -291,7 +291,7 @@ def deploy_configuration(
             "The validation checks at the end of each stage have been disabled"
         )
 
-    with timer(logger, "deploying Nebari"):
+    with timer(logger, "deploying Anymlops"):
         try:
             guided_install(
                 config,

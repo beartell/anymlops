@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Export users and groups from Nebari.")
+    parser = argparse.ArgumentParser(description="Export users and groups from Anymlops.")
     parser.add_argument("-c", "--config", help="anymlops configuration", required=True)
     args = parser.parse_args()
 

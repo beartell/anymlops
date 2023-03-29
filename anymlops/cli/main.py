@@ -45,7 +45,7 @@ GUIDED_INIT_MSG = (
     "It is an [i]alternative[/i] to passing the options listed below."
 )
 KEYCLOAK_COMMAND_MSG = (
-    "Interact with the Nebari Keycloak identity and access management tool."
+    "Interact with the Anymlops Keycloak identity and access management tool."
 )
 DEV_COMMAND_MSG = "Development tools and advanced features."
 
@@ -58,7 +58,7 @@ class OrderCommands(TyperGroup):
 
 app = typer.Typer(
     cls=OrderCommands,
-    help="Nebari CLI 🪴",
+    help="Anymlops CLI 🪴",
     add_completion=False,
     no_args_is_help=True,
     rich_markup_mode="rich",
@@ -84,7 +84,7 @@ def version(
         None,
         "-v",
         "--version",
-        help="Nebari version number",
+        help="Anymlops version number",
         is_eager=True,
     ),
 ):
@@ -162,10 +162,10 @@ def init(
 
     This command will create and initialize your [purple]anymlops-config.yaml[/purple] :sparkles:
 
-    This file contains all your Nebari cluster configuration details and,
+    This file contains all your Anymlops cluster configuration details and,
     is used as input to later commands such as [green]anymlops render[/green], [green]anymlops deploy[/green], etc.
 
-    If you're new to Nebari, we recommend you use the Guided Init wizard.
+    If you're new to Anymlops, we recommend you use the Guided Init wizard.
     To get started simply run:
 
             [green]anymlops init --guided-init[/green]
@@ -305,7 +305,7 @@ def deploy(
     ),
 ):
     """
-    Deploy the Nebari cluster from your [purple]anymlops-config.yaml[/purple] file.
+    Deploy the Anymlops cluster from your [purple]anymlops-config.yaml[/purple] file.
     """
     config_filename = Path(config)
 
@@ -350,11 +350,11 @@ def destroy(
     disable_prompt: bool = typer.Option(
         False,
         "--disable-prompt",
-        help="Destroy entire Nebari cluster without confirmation request. Suggested for CI use.",
+        help="Destroy entire Anymlops cluster without confirmation request. Suggested for CI use.",
     ),
 ):
     """
-    Destroy the Nebari cluster from your [purple]anymlops-config.yaml[/purple] file.
+    Destroy the Anymlops cluster from your [purple]anymlops-config.yaml[/purple] file.
     """
 
     def _run_destroy(config=config, disable_render=disable_render):
@@ -375,7 +375,7 @@ def destroy(
 
     if disable_prompt:
         _run_destroy()
-    elif typer.confirm("Are you sure you want to destroy your Nebari cluster?"):
+    elif typer.confirm("Are you sure you want to destroy your Anymlops cluster?"):
         _run_destroy()
     else:
         raise typer.Abort()
@@ -387,7 +387,7 @@ def cost(
         None,
         "-p",
         "--path",
-        help="Pass the path of your stages directory generated after rendering Nebari configurations before deployment",
+        help="Pass the path of your stages directory generated after rendering Anymlops configurations before deployment",
     ),
     dashboard: bool = typer.Option(
         True,
@@ -415,7 +415,7 @@ def cost(
     ),
 ):
     """
-    Estimate the cost of deploying Nebari based on your [purple]anymlops-config.yaml[/purple]. [italic]Experimental.[/italic].
+    Estimate the cost of deploying Anymlops based on your [purple]anymlops-config.yaml[/purple]. [italic]Experimental.[/italic].
 
     [italic]This is still only experimental using Infracost under the hood.
     The estimated value is a base cost and does not include usage costs.[/italic]
@@ -440,7 +440,7 @@ def upgrade(
     attempt_fixes: bool = typer.Option(
         False,
         "--attempt-fixes",
-        help="Attempt to fix the config for any incompatibilities between your old and new Nebari versions.",
+        help="Attempt to fix the config for any incompatibilities between your old and new Anymlops versions.",
     ),
 ):
     """
@@ -477,7 +477,7 @@ def support(
     """
     Support tool to write all Kubernetes logs locally and compress them into a zip file.
 
-    The Nebari team recommends k9s to manage and inspect the state of the cluster.
+    The Anymlops team recommends k9s to manage and inspect the state of the cluster.
     However, this command occasionally helpful for debugging purposes should the logs need to be shared.
     """
     kube_config.load_kube_config()

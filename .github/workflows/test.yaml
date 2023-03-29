@@ -46,10 +46,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Nebari
+      - name: Install Anymlops
         run: |
           pip install .[dev]
-      - name: Test Nebari
+      - name: Test Anymlops
         run: |
           pytest --version
           pytest --ignore=tests_deployment

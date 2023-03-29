@@ -39,5 +39,5 @@ We value all user contributions. If we are slow to review, either the pull reque
 convincing, etc., or the reviewers are likely busy. In either case,
 we ask for your understanding during the
 review process.
-Thanks for contributing to Nebari 🙏🏼!
+Thanks for contributing to Anymlops 🙏🏼!
 -->

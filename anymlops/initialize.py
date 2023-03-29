@@ -39,9 +39,9 @@ def base_configuration():
             "authentication": None,
         },
         "default_images": {
-            "jupyterhub": f"quay.io/nebari/nebari-jupyterhub:{nebari_image_tag}",
-            "jupyterlab": f"quay.io/nebari/nebari-jupyterlab:{nebari_image_tag}",
-            "dask_worker": f"quay.io/nebari/nebari-dask-worker:{nebari_image_tag}",
+            "jupyterhub": f"quay.io/nebari/nebari-jupyterhub:{anymlops_image_tag}",
+            "jupyterlab": f"quay.io/nebari/nebari-jupyterlab:{anymlops_image_tag}",
+            "dask_worker": f"quay.io/nebari/nebari-dask-worker:{anymlops_image_tag}",
         },
         "storage": {"conda_store": "200Gi", "shared_filesystem": "200Gi"},
         "theme": {
@@ -376,16 +376,16 @@ def render_config(
 
     # Save default password to file
     default_password_filename = os.path.join(
-        tempfile.gettempdir(), "NEBARI_DEFAULT_PASSWORD"
+        tempfile.gettempdir(), "ANYMLOPS_DEFAULT_PASSWORD"
     )
     with open(default_password_filename, "w") as f:
         f.write(default_password)
     os.chmod(default_password_filename, 0o700)
 
-    config["theme"]["jupyterhub"]["hub_title"] = f"Nebari - { project_name }"
+    config["theme"]["jupyterhub"]["hub_title"] = f"Anymlops - { project_name }"
     config["theme"]["jupyterhub"][
         "welcome"
-    ] = """Welcome! Learn about Nebari's features and configurations in <a href="https://www.anymlops.dev/docs">the documentation</a>. If you have any questions or feedback, reach the team on <a href="https://www.anymlops.dev/docs/community#getting-support">Nebari's support forums</a>."""
+    ] = """Welcome! Learn about Anymlops's features and configurations in <a href="https://www.anymlops.dev/docs">the documentation</a>. If you have any questions or feedback, reach the team on <a href="https://www.anymlops.dev/docs/community#getting-support">Anymlops's support forums</a>."""
 
     if auth_provider == "github":
         config["security"]["authentication"] = AUTH_OAUTH_GITHUB.copy()
@@ -499,7 +499,7 @@ def github_auto_provision(config, owner, repo):
             github.create_repository(
                 owner,
                 repo,
-                description=f'Nebari {config["project_name"]}-{config["provider"]}',
+                description=f'Anymlops {config["project_name"]}-{config["provider"]}',
                 homepage=f'https://{config["domain"]}',
             )
         except requests.exceptions.HTTPError as he:

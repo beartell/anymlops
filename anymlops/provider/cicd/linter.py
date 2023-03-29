@@ -10,7 +10,7 @@ from anymlops.schema import verify
 
 def anymlops_validate(config):
     # Gather the output of `anymlops validate`.
-    print("Validate: info: validating Nebari configuration in anymlops-config.yaml")
+    print("Validate: info: validating Anymlops configuration in anymlops-config.yaml")
 
     def parse_validation(message):
         # this will just separate things for now, but can be enhanced
@@ -18,12 +18,12 @@ def anymlops_validate(config):
 
     try:
         verify(config)
-        msg = "validate: info: successfully validated Nebari configuration"
+        msg = "validate: info: successfully validated Anymlops configuration"
         print(msg)
         return True, msg, 0
 
     except BaseException as e:
-        msg = "validate: error: failed to validate Nebari configuration."
+        msg = "validate: error: failed to validate Anymlops configuration."
         print(msg)
         validate_comment = parse_validation(e)
         validate_comment_wrapper = f"\n```\n{validate_comment}\n``` "
@@ -38,7 +38,7 @@ def generate_lint_message(config):
 
     pass_lint = textwrap.dedent(
         """
-            This is an automatic response from the Nebari linter.
+            This is an automatic response from the Anymlops linter.
             I just wanted to let you know that I linted your `anymlops-config.yaml` in your PR and I didn't find any
             problems.
             """
@@ -48,7 +48,7 @@ def generate_lint_message(config):
     bad_lint = (
         textwrap.dedent(
             """
-            This is an automatic response from the Nebari linter.
+            This is an automatic response from the Anymlops linter.
             I just wanted to let you know that I linted your `anymlops-config.yaml` in your PR and found some errors:\n"""
         )
         + f"{messages}"
@@ -58,7 +58,7 @@ def generate_lint_message(config):
         status = "no configuration file"
         message = textwrap.dedent(
             """
-            This is an automatic response from the Nebari linter.
+            This is an automatic response from the Anymlops linter.
             I was trying to look for the `anymlops-config.yaml` file to lint for you, but couldn't find any...
             """
         )

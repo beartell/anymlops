@@ -1,4 +1,4 @@
-name: "Test Nebari Provider"
+name: "Test Anymlops Provider"
 
 on:
   pull_request:
@@ -43,7 +43,7 @@ env:
 jobs:
   test-render-providers:
     if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name != 'pull_request'
-    name: "Test Nebari Provider"
+    name: "Test Anymlops Provider"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -89,18 +89,18 @@ jobs:
       - name: Use az CLI
         if: ${{ matrix.provider == 'azure' }}
         run: az version
-      - name: Install Nebari
+      - name: Install Anymlops
         run: |
           pip install .[dev]
-      - name: Nebari Initialize
+      - name: Anymlops Initialize
         run: |
           nebari init "${{ matrix.provider }}" --project "TestProvider" --domain "${{ matrix.provider }}.nebari.dev" --auth-provider github --disable-prompt --ci-provider ${{ matrix.cicd }}
           cat "nebari-config.yaml"
-      - name: Nebari Render
+      - name: Anymlops Render
         run: |
           nebari render -c "nebari-config.yaml" -o "nebari-${{ matrix.provider }}-${{ matrix.cicd }}-deployment"
           cp "nebari-config.yaml" "nebari-${{ matrix.provider }}-${{ matrix.cicd }}-deployment/nebari-config.yaml"
-      - name: Nebari Render Artifact
+      - name: Anymlops Render Artifact
         uses: actions/upload-artifact@master
         with:
           name: "nebari-${{ matrix.provider }}-${{ matrix.cicd }}-artifact"

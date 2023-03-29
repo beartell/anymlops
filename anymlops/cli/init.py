@@ -16,11 +16,11 @@ from anymlops.schema import (
     TerraformStateEnum,
     project_name_convention,
 )
-from anymlops.utils import NEBARI_DASK_VERSION, NEBARI_IMAGE_TAG, yaml
+from anymlops.utils import ANYMLOPS_DASK_VERSION, ANYMLOPS_IMAGE_TAG, yaml
 
 MISSING_CREDS_TEMPLATE = "Unable to locate your {provider} credentials, refer to this guide on how to generate them:\n\n[green]\t{link_to_docs}[/green]\n\n"
 LINKS_TO_DOCS_TEMPLATE = (
-    "For more details, refer to the Nebari docs:\n\n\t[green]{link_to_docs}[/green]\n\n"
+    "For more details, refer to the Anymlops docs:\n\n\t[green]{link_to_docs}[/green]\n\n"
 )
 
 # links to external docs
@@ -37,7 +37,7 @@ CREATE_AZURE_CREDS = "https://registry.terraform.io/providers/hashicorp/azurerm/
 CREATE_AUTH0_CREDS = "https://auth0.com/docs/get-started/auth0-overview/create-applications/machine-to-machine-apps"
 CREATE_GITHUB_OAUTH_CREDS = "https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app"
 
-# links to Nebari docs
+# links to Anymlops docs
 DOCS_HOME = "https://anymlops.dev/docs/"
 CHOOSE_CLOUD_PROVIDER = "https://anymlops.dev/docs/get-started/deploy"
 
@@ -50,14 +50,14 @@ def handle_init(inputs: InitInputs):
     """
     Take the inputs from the `anymlops init` command, render the config and write it to a local yaml file.
     """
-    if NEBARI_IMAGE_TAG:
+    if ANYMLOPS_IMAGE_TAG:
         print(
-            f"Modifying the image tags for the `default_images`, setting tags to: {NEBARI_IMAGE_TAG}"
+            f"Modifying the image tags for the `default_images`, setting tags to: {ANYMLOPS_IMAGE_TAG}"
         )
 
-    if NEBARI_DASK_VERSION:
+    if ANYMLOPS_DASK_VERSION:
         print(
-            f"Modifying the version of the `anymlops_dask` package, setting version to: {NEBARI_DASK_VERSION}"
+            f"Modifying the version of the `anymlops_dask` package, setting version to: {ANYMLOPS_DASK_VERSION}"
         )
 
     # this will force the `set_kubernetes_version` to grab the latest version
@@ -290,7 +290,7 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
     Guided Init Wizard is a user-friendly questionnaire used to help generate the `anymlops-config.yaml`.
     """
     qmark = "  "
-    disable_checks = os.environ.get("NEBARI_DISABLE_INIT_CHECKS", False)
+    disable_checks = os.environ.get("ANYMLOPS_DISABLE_INIT_CHECKS", False)
 
     if Path("anymlops-config.yaml").exists():
         raise ValueError(
@@ -320,17 +320,17 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
         # CLOUD PROVIDER
         rich.print(
             (
-                "\n 🪴  Nebari runs on a Kubernetes cluster: Where do you want this Kubernetes cluster deployed? "
+                "\n 🪴  Anymlops runs on a Kubernetes cluster: Where do you want this Kubernetes cluster deployed? "
                 "is where you want this Kubernetes cluster deployed. "
                 f"{LINKS_TO_DOCS_TEMPLATE.format(link_to_docs=CHOOSE_CLOUD_PROVIDER)}"
                 "\n\t❗️ [purple]local[/purple] requires Docker and Kubernetes running on your local machine. "
                 "[italic]Currently only available on Linux OS.[/italic]"
-                "\n\t❗️ [purple]existing[/purple] refers to an existing Kubernetes cluster that Nebari can be deployed on.\n"
+                "\n\t❗️ [purple]existing[/purple] refers to an existing Kubernetes cluster that Anymlops can be deployed on.\n"
             )
         )
         # try:
         inputs.cloud_provider = questionary.select(
-            "Where would you like to deploy your Nebari cluster?",
+            "Where would you like to deploy your Anymlops cluster?",
             choices=enum_to_list(ProviderEnum),
             qmark=qmark,
         ).unsafe_ask()
@@ -354,7 +354,7 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
         # PROJECT NAME
         rich.print(
             (
-                f"\n 🪴  Next, give your Nebari instance a project name. This name is what your Kubernetes cluster will be referred to as.\n{name_guidelines}\n"
+                f"\n 🪴  Next, give your Anymlops instance a project name. This name is what your Kubernetes cluster will be referred to as.\n{name_guidelines}\n"
             )
         )
         inputs.project_name = questionary.text(
@@ -383,7 +383,7 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
         rich.print(
             (
                 # TODO once docs are updated, add links for more details
-                "\n\n 🪴  Nebari comes with [green]Keycloak[/green], an open-source identity and access management tool. This is how users and permissions "
+                "\n\n 🪴  Anymlops comes with [green]Keycloak[/green], an open-source identity and access management tool. This is how users and permissions "
                 "are managed on the platform. To connect Keycloak with an identity provider, you can select one now.\n\n"
                 "\n\t❗️ [purple]password[/purple] is the default option and is not connected to any external identity provider.\n"
             )
@@ -417,12 +417,12 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
         rich.print(
             (
                 "\n\n 🪴  This next section is [italic]optional[/italic] but recommended. If you wish to adopt a GitOps approach to managing this platform, "
-                "we will walk you through a set of questions to get that setup. With this setup, Nebari will use GitHub Actions workflows (or GitLab equivalent) "
+                "we will walk you through a set of questions to get that setup. With this setup, Anymlops will use GitHub Actions workflows (or GitLab equivalent) "
                 "to automatically handle the future deployments of your infrastructure.\n\n"
             )
         )
         if questionary.confirm(
-            "Would you like to adopt a GitOps approach to managing Nebari?",
+            "Would you like to adopt a GitOps approach to managing Anymlops?",
             default=False,
             qmark=qmark,
         ).unsafe_ask():
@@ -466,7 +466,7 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
         # SSL CERTIFICATE
         rich.print(
             (
-                "\n\n 🪴  This next section is [italic]optional[/italic] but recommended. If you want your Nebari domain to use a Let's Encrypt SSL certificate, "
+                "\n\n 🪴  This next section is [italic]optional[/italic] but recommended. If you want your Anymlops domain to use a Let's Encrypt SSL certificate, "
                 "all we need is an email address from you.\n\n"
             )
         )
@@ -554,7 +554,7 @@ def guided_init_wizard(ctx: typer.Context, guided_init: str):
 
         rich.print(
             (
-                "You can now deploy your Nebari instance with:\n\n"
+                "You can now deploy your Anymlops instance with:\n\n"
                 "\t[green]anymlops deploy -c anymlops-config.yaml[/green]\n\n"
                 "For more information, run [green]anymlops deploy --help[/green] or check out the documentation: "
                 "[green]https://www.anymlops.dev/docs/how-tos/[/green]"

@@ -50,7 +50,7 @@ def create_client(jupyterhub_endpoint, project_name, reuse_existing=True):
     client = auth0.clients.create(
         {
             "name": project_name,
-            "description": f"Nebari - {project_name} - {jupyterhub_endpoint}",
+            "description": f"Anymlops - {project_name} - {jupyterhub_endpoint}",
             "callbacks": [oauth_callback_url],
             "app_type": "regular_web",
         }

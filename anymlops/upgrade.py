@@ -22,14 +22,14 @@ def do_upgrade(config_filename, attempt_fixes=False):
     try:
         verify(config)
         rich.print(
-            f"Your config file [purple]{config_filename}[/purple] appears to be already up-to-date for Nebari version [green]{__version__}[/green]"
+            f"Your config file [purple]{config_filename}[/purple] appears to be already up-to-date for Anymlops version [green]{__version__}[/green]"
         )
         return
     except (ValidationError, ValueError) as e:
         if is_version_accepted(config.get("qhub_version", "")):
             # There is an unrelated validation problem
             print(
-                f"Your config file {config_filename} appears to be already up-to-date for Nebari version {__version__} but there is another validation error.\n"
+                f"Your config file {config_filename} appears to be already up-to-date for Anymlops version {__version__} but there is another validation error.\n"
             )
             raise e
 
@@ -46,7 +46,7 @@ def do_upgrade(config_filename, attempt_fixes=False):
         yaml.dump(config, f)
 
     print(
-        f"Saving new config file {config_filename} ready for Nebari version {__version__}"
+        f"Saving new config file {config_filename} ready for Anymlops version {__version__}"
     )
 
     ci_cd = config.get("ci_cd", {}).get("type", "")
@@ -86,7 +86,7 @@ class UpgradeStep(ABC):
 
         if finish_ver < starting_ver:
             raise ValueError(
-                f"Your anymlops-config.yaml already belongs to a later version ({start_version}) than the installed version of Nebari ({finish_version}).\n"
+                f"Your anymlops-config.yaml already belongs to a later version ({start_version}) than the installed version of Anymlops ({finish_version}).\n"
                 "You should upgrade the installed anymlops package (e.g. pip install --upgrade anymlops) to work with your deployment."
             )
 
@@ -216,7 +216,7 @@ class Upgrade_0_3_12(UpgradeStep):
         self, config, start_version, config_filename, *args, **kwargs
     ):
         """
-        This version of Nebari requires a conda_store image for the first time.
+        This version of Anymlops requires a conda_store image for the first time.
         """
         if config.get("default_images", {}).get("conda_store", None) is None:
             newimage = "quansight/conda-store-server:v0.3.3"
@@ -293,7 +293,7 @@ class Upgrade_0_4_0(UpgradeStep):
 
         print(
             f"\nSaving user/group import file {realm_import_filename}.\n\n"
-            "ACTION REQUIRED: You must import this file into the Keycloak admin webpage after you redeploy Nebari.\n"
+            "ACTION REQUIRED: You must import this file into the Keycloak admin webpage after you redeploy Anymlops.\n"
             "Visit the URL path /auth/ and login as 'root'. Under Manage, click Import and select this file.\n\n"
             "Non-admin users will default to analyst group membership after the upgrade (no dask access), "
             "so you may wish to promote some users into the developer group.\n"
