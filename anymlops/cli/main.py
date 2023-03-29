@@ -38,7 +38,7 @@ from anymlops.upgrade import do_upgrade
 from anymlops.utils import load_yaml
 from anymlops.version import __version__
 
-SECOND_COMMAND_GROUP_NAME = "Additional Commands"
+SECOND_COMMAND_GROUP_NAME = "Debugging Commands"
 GUIDED_INIT_MSG = (
     "[bold green]START HERE[/bold green] - this will guide you step-by-step "
     "to generate your [purple]anymlops-config.yaml[/purple]. "
@@ -58,7 +58,7 @@ class OrderCommands(TyperGroup):
 
 app = typer.Typer(
     cls=OrderCommands,
-    help="Anymlops CLI 🪴",
+    help="🐻‍❄️  Anymlops CLI ",
     add_completion=False,
     no_args_is_help=True,
     rich_markup_mode="rich",
@@ -68,12 +68,6 @@ app.add_typer(
     app_keycloak,
     name="keycloak",
     help=KEYCLOAK_COMMAND_MSG,
-    rich_help_panel=SECOND_COMMAND_GROUP_NAME,
-)
-app.add_typer(
-    app_dev,
-    name="dev",
-    help=DEV_COMMAND_MSG,
     rich_help_panel=SECOND_COMMAND_GROUP_NAME,
 )
 
@@ -188,75 +182,6 @@ def init(
     inputs.disable_prompt = disable_prompt
 
     handle_init(inputs)
-
-
-@app.command(rich_help_panel=SECOND_COMMAND_GROUP_NAME)
-def validate(
-    config: str = typer.Option(
-        ...,
-        "--config",
-        "-c",
-        help="anymlops configuration yaml file path, please pass in as -c/--config flag",
-    ),
-    enable_commenting: bool = typer.Option(
-        False, "--enable-commenting", help="Toggle PR commenting on GitHub Actions"
-    ),
-):
-    """
-    Validate the values in the [purple]anymlops-config.yaml[/purple] file are acceptable.
-    """
-    config_filename = Path(config)
-    if not config_filename.is_file():
-        raise ValueError(
-            f"Passed in configuration filename={config_filename} must exist."
-        )
-
-    config = load_yaml(config_filename)
-
-    if enable_commenting:
-        # for PR's only
-        # comment_on_pr(config)
-        pass
-    else:
-        verify(config)
-        print("[bold purple]Successfully validated configuration.[/bold purple]")
-
-
-@app.command(rich_help_panel=SECOND_COMMAND_GROUP_NAME)
-def render(
-    output: str = typer.Option(
-        "./",
-        "-o",
-        "--output",
-        help="output directory",
-    ),
-    config: str = typer.Option(
-        ...,
-        "-c",
-        "--config",
-        help="anymlops configuration yaml file path",
-    ),
-    dry_run: bool = typer.Option(
-        False,
-        "--dry-run",
-        help="simulate rendering files without actually writing or updating any files",
-    ),
-):
-    """
-    Dynamically render the Terraform scripts and other files from your [purple]anymlops-config.yaml[/purple] file.
-    """
-    config_filename = Path(config)
-
-    if not config_filename.is_file():
-        raise ValueError(
-            f"passed in configuration filename={config_filename} must exist"
-        )
-
-    config_yaml = load_yaml(config_filename)
-
-    verify(config_yaml)
-
-    render_template(output, config, force=True, dry_run=dry_run)
 
 
 @app.command()
@@ -379,155 +304,6 @@ def destroy(
         _run_destroy()
     else:
         raise typer.Abort()
-
-
-@app.command(rich_help_panel=SECOND_COMMAND_GROUP_NAME)
-def cost(
-    path: str = typer.Option(
-        None,
-        "-p",
-        "--path",
-        help="Pass the path of your stages directory generated after rendering Anymlops configurations before deployment",
-    ),
-    dashboard: bool = typer.Option(
-        True,
-        "-d",
-        "--dashboard",
-        help="Enable the cost dashboard",
-    ),
-    file: str = typer.Option(
-        None,
-        "-f",
-        "--file",
-        help="Specify the path of the file to store the cost report",
-    ),
-    currency: str = typer.Option(
-        "USD",
-        "-c",
-        "--currency",
-        help="Specify the currency code to use in the cost report",
-    ),
-    compare: bool = typer.Option(
-        False,
-        "-cc",
-        "--compare",
-        help="Compare the cost report to a previously generated report",
-    ),
-):
-    """
-    Estimate the cost of deploying Anymlops based on your [purple]anymlops-config.yaml[/purple]. [italic]Experimental.[/italic].
-
-    [italic]This is still only experimental using Infracost under the hood.
-    The estimated value is a base cost and does not include usage costs.[/italic]
-    """
-    infracost_report(
-        path=path,
-        dashboard=True,
-        file=file,
-        currency_code=currency,
-        compare=False,
-    )
-
-
-@app.command(rich_help_panel=SECOND_COMMAND_GROUP_NAME)
-def upgrade(
-    config: str = typer.Option(
-        ...,
-        "-c",
-        "--config",
-        help="anymlops configuration file path",
-    ),
-    attempt_fixes: bool = typer.Option(
-        False,
-        "--attempt-fixes",
-        help="Attempt to fix the config for any incompatibilities between your old and new Anymlops versions.",
-    ),
-):
-    """
-    Upgrade your [purple]anymlops-config.yaml[/purple] from pre-0.4.0 to 0.4.0.
-
-    Due to several breaking changes that came with the 0.4.0 release, this utility is available to help
-    update your [purple]anymlops-config.yaml[/purple] to comply with the introduced changes.
-    See the project [green]RELEASE.md[/green] for details.
-    """
-    config_filename = Path(config)
-    if not config_filename.is_file():
-        raise ValueError(
-            f"passed in configuration filename={config_filename} must exist"
-        )
-
-    do_upgrade(config_filename, attempt_fixes=attempt_fixes)
-
-
-@app.command(rich_help_panel=SECOND_COMMAND_GROUP_NAME)
-def support(
-    config_filename: str = typer.Option(
-        ...,
-        "-c",
-        "--config",
-        help="anymlops configuration file path",
-    ),
-    output: str = typer.Option(
-        "./anymlops-support-logs.zip",
-        "-o",
-        "--output",
-        help="output filename",
-    ),
-):
-    """
-    Support tool to write all Kubernetes logs locally and compress them into a zip file.
-
-    The Anymlops team recommends k9s to manage and inspect the state of the cluster.
-    However, this command occasionally helpful for debugging purposes should the logs need to be shared.
-    """
-    kube_config.load_kube_config()
-
-    v1 = client.CoreV1Api()
-
-    namespace = get_config_namespace(config=config_filename)
-
-    pods = v1.list_namespaced_pod(namespace=namespace)
-
-    for pod in pods.items:
-        Path(f"./log/{namespace}").mkdir(parents=True, exist_ok=True)
-        path = Path(f"./log/{namespace}/{pod.metadata.name}.txt")
-        with path.open(mode="wt") as file:
-            try:
-                file.write(
-                    "%s\t%s\t%s\n"
-                    % (
-                        pod.status.pod_ip,
-                        namespace,
-                        pod.metadata.name,
-                    )
-                )
-
-                # some pods are running multiple containers
-                containers = [
-                    _.name if len(pod.spec.containers) > 1 else None
-                    for _ in pod.spec.containers
-                ]
-
-                for container in containers:
-                    if container is not None:
-                        file.write(f"Container: {container}\n")
-                    file.write(
-                        v1.read_namespaced_pod_log(
-                            name=pod.metadata.name,
-                            namespace=namespace,
-                            container=container,
-                        )
-                    )
-
-            except client.exceptions.ApiException as e:
-                file.write("%s not available" % pod.metadata.name)
-                raise e
-
-    with ZipFile(output, "w") as zip:
-        for file in list(Path(f"./log/{namespace}").glob("*.txt")):
-            print(file)
-            zip.write(file)
-
 
 def get_config_namespace(config):
     config_filename = Path(config)
