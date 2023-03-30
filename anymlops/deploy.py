@@ -244,19 +244,14 @@ def guided_install(
         print(f" - {service_name} -> {service['url']}")
 
     print(
-        f"Kubernetes kubeconfig located at file://{stage_outputs['stages/02-infrastructure']['kubeconfig_filename']['value']}"
+        f"Kubernetes kubeconfig file://{stage_outputs['stages/02-infrastructure']['kubeconfig_filename']['value']}"
     )
     username = "root"
     password = (
         config.get("security", {}).get("keycloak", {}).get("initial_root_password", "")
     )
     if password:
-        print(f"Kubecloak master realm username={username} password={password}")
-
-    print(
-        "Additional administration docs can be found at https://docs.anymlops.dev/en/stable/source/admin_guide/"
-    )
-
+        print(f"Access Kubecloak with master realm username={username} password={password}")
 
 def deploy_configuration(
     config,
@@ -278,7 +273,7 @@ def deploy_configuration(
         version of Anymlops without having a full backup of your system ready to restore. It may be known that an in-situ upgrade is impossible
         and that redeployment will tear down your existing infrastructure before creating an entirely new Anymlops without your old data.
 
-        PLEASE get in touch with Anymlops development team at https://github.com/anymlops-dev/anymlops for assistance in proceeding.
+        PLEASE get in touch with Anymlops development team at https://github.com/beartell/anymlops for assistance in proceeding.
         Your data may be at risk without our guidance.
         """
             )
